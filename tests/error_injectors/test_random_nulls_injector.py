@@ -1,7 +1,7 @@
 from virny.datasets.data_loaders import CreditDataset, CompasDataset
 
-from source.error_injectors.random_nulls_injector import RandomNullsInjector
-from source.error_injectors.random_nulls_injector_v2 import RandomNullsInjectorV2
+from mlcf.error_injectors.random_nulls_injector import RandomNullsInjector
+from mlcf.error_injectors.random_nulls_injector_v2 import RandomNullsInjectorV2
 
 
 def test_random_nulls_injector():
