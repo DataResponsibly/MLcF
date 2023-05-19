@@ -9,7 +9,6 @@ we develop a separate software library called [Virny](https://github.com/DataRes
 for computing model performance metrics in MLcF.
 
 The framework's design was guided by three foundational decisions:
-
 1) easy extensibility and modularity that aligns with our ML lifecycle view and empirical approach; 
 2) flexible functionality that creates a playground with controlled error injection; 
 3) convenience for conducting multiple experiments with various classification datasets.
