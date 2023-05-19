@@ -87,19 +87,32 @@ def run_exp_iter_with_models_stress_testing(data_loader, experiment_seed, test_s
     db_writer_func
         A db_writer for Virny. It is used to save a provided dataframe of metrics to the user database.
     error_injector
-        An initialized class of error injectors based on AbstractErrorInjector.
+        An initialized instance of error injectors based on AbstractErrorInjector.
     injector_config_lst
+        A list with configs for the error injector to create multiple test sets with different level of injected error.
     preprocessor
+        A sklearn preprocessor for data preprocessing.
     models_params_for_tuning
+        A dictionary where keys are model names and values are another dictionary with parameter name and
+         a list of values for these parameter to traverse.
     metrics_computation_config
+        A config object for metrics computation by Virny.
     custom_table_fields_dct
+        Extra fields to add in the final dataframe with metrics to save in the user database using the db_writer.
     with_tuning
+        Enable or disable model tuning.
     save_results_dir_path
+        A path to store tuned hyper-parameters for all models.
     tuned_params_df_path
+        A path that contains tuned hyper-parameters for all models.
     num_folds_for_tuning
+        The number of folds for k-fold cross validation.
     mode
+        'max_num_columns' -- for creating test sets with different numbers of affected columns;
+        'column_importance' -- for creating test sets with different name of affected columns;
+        'rows_pct' -- for creating test sets with different percentages of affected rows.
     verbose
-
+        Enable or disable logs.
     """
     custom_table_fields_dct['dataset_split_seed'] = experiment_seed
     custom_table_fields_dct['model_init_seed'] = experiment_seed
