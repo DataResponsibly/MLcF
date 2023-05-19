@@ -6,6 +6,10 @@ from mlcf.error_injectors.abstract_error_injector import AbstractErrorInjector
 
 class MislabelsInjector(AbstractErrorInjector):
     """
+    Mislabels Injector adds a defined percentage of mislabels to a target column
+    in the input dataset. A mislabel is created by flipping a row label to any other
+    label that is not equal to the original one.
+
     Parameters
     ----------
     seed

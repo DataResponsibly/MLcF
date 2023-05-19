@@ -77,18 +77,8 @@ def create_stress_testing_sets(original_X_test, original_y_test, error_injector,
         X_test = original_X_test.copy(deep=True)
         error_injector.set_percentage_var(percentage_var)
         error_injector.increment_seed()
-        print('error_injector.seed -- ', error_injector.seed)
         transformed_X_test = error_injector.transform(X_test)  # Use only transform without fit
-        print('transformed_X_test:\n', transformed_X_test.isna().sum())
-        
-        print('\n')
-        for col_name2 in error_injector.columns_to_transform:
-            new_outliers = detect_outliers_std(X_test, transformed_X_test, col_name2)
-            print(f'{col_name2}: {new_outliers.shape[0]}')
-        print('\n')
-        
         new_X_test_features = fitted_column_transformer.transform(transformed_X_test)  # Preprocess the feature set
-
         extra_test_sets_lst.append((new_X_test_features, original_y_test))
 
     return extra_test_sets_lst
@@ -107,12 +97,6 @@ def create_stress_testing_sets_using_columns(original_X_test, original_y_test, e
         transformed_X_test = error_injector.transform(X_test)  # Use only transform without fit
         print('transformed_X_test:\n', transformed_X_test.isna().sum())
 
-        # print('\n')
-        # for col_name2 in error_injector.columns_to_transform:
-        #     new_outliers = detect_outliers_std(X_test, transformed_X_test, col_name2)
-        #     print(f'{col_name2}: {new_outliers.shape[0]}')
-        # print('\n')
-
         new_X_test_features = fitted_column_transformer.transform(transformed_X_test)  # Preprocess the feature set
         extra_test_sets_lst.append((new_X_test_features, original_y_test))
 
@@ -126,18 +110,8 @@ def create_stress_testing_sets_using_cols_importance(original_X_test, original_y
     for column_name in injector_config_lst:
         X_test = original_X_test.copy(deep=True)
         error_injector.set_columns_to_transform([column_name])
-        print('error_injector.columns_to_transform -- ', error_injector.columns_to_transform)
         error_injector.increment_seed()
-        print('error_injector.seed -- ', error_injector.seed)
         transformed_X_test = error_injector.fit_transform(X_test)
-        print('transformed_X_test:\n', transformed_X_test.isna().sum())
-
-        print('\n')
-        for col_name2 in error_injector.columns_to_transform:
-            new_outliers = detect_outliers_std(X_test, transformed_X_test, col_name2)
-            print(f'{col_name2}: {new_outliers.shape[0]}')
-        print('\n')
-
         new_X_test_features = fitted_column_transformer.transform(transformed_X_test)  # Preprocess the feature set
         extra_test_sets_lst.append((new_X_test_features, original_y_test))
 

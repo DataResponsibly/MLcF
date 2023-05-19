@@ -5,19 +5,21 @@ from mlcf.preprocessing.null_helpers import find_column_mode, find_column_mean, 
 class NullImputer(TransformerMixin, BaseEstimator):
     """
     Null imputer that has ["mean", "median", "mode", "special"] strategies.
+    Each strategy can be combined with trimmed and conditional options defined below in parameters.
 
     Parameters
     ----------
     target_columns
-        List of column names to impute
+        A list of column names to impute
     how
-
+        Any strategy from ["mean", "median", "mode", "special"]
     trimmed
-
+        [Optional] A float number from 0 to 1. Using this value, the logic cuts upper 'trimmed' percentage of rows
+         and lower 'trimmed' percentage of rows, similar to: df[df.shape[0] * trimmed: -df.shape[0] * trimmed].
     conditional_column
-
+        [Optional] A column for conditional strategy.
     special_value
-
+        [Optional] A special value to impute. Used together with conditional_column for conditional strategies.
     """
     def __init__(self, target_columns: list, how="mean", trimmed=0.0, conditional_column=None, special_value=None):
         if trimmed < 0.0 or trimmed > 1.0:

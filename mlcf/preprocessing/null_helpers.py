@@ -7,37 +7,6 @@ from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
 from mlcf.configs.constants import NULL_PREDICTOR_SEED
 
 
-def get_sample_rows(data, target_col, fraction):
-    """
-    Description: create a list of random indexes for rows, which will be used to place nulls in the dataset
-    """
-    n_values_to_discard = int(len(data) * min(fraction, 1.0))
-    perc_lower_start = np.random.randint(0, len(data) - n_values_to_discard)
-    perc_idx = range(perc_lower_start, perc_lower_start + n_values_to_discard)
-
-    depends_on_col = np.random.choice(list(set(data.columns) - {target_col}))
-    # Pick a random percentile of values in other column
-    rows = data[depends_on_col].sort_values().iloc[perc_idx].index
-    return rows
-
-
-def decide_special_category(data):
-    """
-    Description: Decides which value to designate as a special value, based on the values already in the data (array)
-    """
-    data_type = data.dtype
-    # If not numerical, simply set the special value to "special"
-    try:
-        # If data is numerical
-        if 0 not in data:
-            return 0
-        else:
-            return max(data) + 1
-    except Exception as err:
-        print("Data is not numerical, assigning string category")
-        return data_type("Special")
-
-
 def find_column_mode(data):
     result = stats.mode(data)
     return result.mode[0]

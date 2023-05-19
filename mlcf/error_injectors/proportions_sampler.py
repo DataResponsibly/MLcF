@@ -7,6 +7,10 @@ from mlcf.error_injectors.abstract_error_injector import AbstractErrorInjector
 
 class ProportionsSampler(AbstractErrorInjector):
     """
+    Proportions Sampler changes the proportions of protected groups in a defined column of the input dataset based on
+     the user input proportions. It also has the option to keep the original prevalence in the dataset
+      after the error injection.
+
     Parameters
     ----------
     seed

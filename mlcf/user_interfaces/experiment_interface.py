@@ -73,6 +73,34 @@ def run_exp_iter_with_models_stress_testing(data_loader, experiment_seed, test_s
                                             tuned_params_df_path: str = None, num_folds_for_tuning: int = 3,
                                             mode='rows_pct',
                                             verbose: bool = False):
+    """
+    An experiment interface for model stress-testing use case.
+
+    Parameters
+    ----------
+    data_loader
+        An inherited class from BaseDataLoader that contains a target column, categorical and numerical fields.
+    experiment_seed
+        Seed for all random processes inside this experiment interface.
+    test_set_fraction
+        Fraction of the whole dataset to use as the test set. The same fraction will be used to create validation sets.
+    db_writer_func
+        A db_writer for Virny. It is used to save a provided dataframe of metrics to the user database.
+    error_injector
+        An initialized class of error injectors based on AbstractErrorInjector.
+    injector_config_lst
+    preprocessor
+    models_params_for_tuning
+    metrics_computation_config
+    custom_table_fields_dct
+    with_tuning
+    save_results_dir_path
+    tuned_params_df_path
+    num_folds_for_tuning
+    mode
+    verbose
+
+    """
     custom_table_fields_dct['dataset_split_seed'] = experiment_seed
     custom_table_fields_dct['model_init_seed'] = experiment_seed
     custom_table_fields_dct['injector_config_lst'] = str(injector_config_lst)
@@ -128,7 +156,6 @@ def run_exp_iter_with_models_stress_testing(data_loader, experiment_seed, test_s
     else:
         models_config = create_models_config_from_tuned_params_df(models_params_for_tuning, tuned_params_df_path)
         print(f'{list(models_config.keys())[0]}: ', models_config[list(models_config.keys())[0]].get_params())
-        # print(f'{list(models_config.keys())[1]}: ', models_config[list(models_config.keys())[1]].get_params())
         logger.info("Models config is loaded from the input file")
 
     # Compute metrics for tuned models

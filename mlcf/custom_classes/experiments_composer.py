@@ -10,6 +10,23 @@ class ExperimentsComposer:
         self.sensitive_attributes_dct = {attr: None for attr in sensitive_attrs}
 
     def create_exp_subgroup_metrics_dct(self):
+        """
+        Create a subgroup metrics dictionary based on self.models_metrics_dct.
+        The hierarchy of the created dictionary is the following:
+            model_name: {
+                preprocessing_technique: {
+                    exp_iter: {
+                        dct_pct_key: pandas df with subgroup metrics for this model, preprocessing technique, and experiment iteration
+                    }
+                }
+            }
+
+        Returns
+        -------
+        Return a new structured dictionary with subgroup metrics per each model, preprocessing technique,
+         and experiment iteration.
+
+        """
         structured_exp_results_dct = dict()
         for model_name in self.models_metrics_dct.keys():
             structured_exp_results_dct[model_name] = dict()
@@ -51,6 +68,29 @@ class ExperimentsComposer:
         return structured_exp_results_dct
 
     def compose_group_metrics(self, structured_exp_results_dct):
+        """
+        Create a group metrics dictionary based on the input structured_exp_results_dct.
+        The hierarchy of the created dictionary is the following:
+            model_name: {
+                preprocessing_technique: {
+                    exp_iter: {
+                        dct_pct_key: pandas df with group metrics for this model, preprocessing technique, and experiment iteration
+                    }
+                }
+            }
+
+        Parameters
+        ----------
+        structured_exp_results_dct
+            A structured dictionary with metrics per each model, preprocessing technique, and experiment iteration.
+            Similar to that one returned by ExperimentsComposer.create_exp_subgroup_metrics_dct()
+
+        Returns
+        -------
+        Return a new structured dictionary with group metrics per each model, preprocessing technique,
+         and experiment iteration.
+
+        """
         structured_exp_avg_group_metrics_dct = dict()
         for model_name in structured_exp_results_dct.keys():
             for preprocessing_technique in structured_exp_results_dct[model_name].keys():

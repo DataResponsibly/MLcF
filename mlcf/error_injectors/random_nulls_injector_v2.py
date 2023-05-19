@@ -7,6 +7,13 @@ from mlcf.error_injectors.abstract_error_injector import AbstractErrorInjector
 
 class RandomNullsInjectorV2(AbstractErrorInjector):
     """
+    Nulls Injector takes three arguments as input: a list of column names to affect, the percentage of rows to
+     inject nulls, and the maximum number of nulls in one row. Then, it randomly selects indexes of rows
+      to affect and randomly chooses columns where to place nulls for each selected row. The number of nulls in
+       one selected row is a random number from 1 to the input maximum number of nulls in one row. In such a way,
+        users have control under both rows and columns and can simulate real-world scenarios when there are multiple
+        random nulls in one selected row.
+
     Parameters
     ----------
     seed

@@ -9,6 +9,9 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, accuracy_sc
 
 
 class NullPredictor(BaseEstimator, TransformerMixin):
+    """
+    A null predictor that imputes nulls in the dataset using the defined base_classifier.
+    """
     def __init__(self, base_classifier, input_columns, target_columns, categorical_columns, numerical_columns):
         self.base_classifier = base_classifier
         self.input_columns = input_columns

@@ -7,6 +7,13 @@ from mlcf.error_injectors.abstract_error_injector import AbstractErrorInjector
 
 class OutliersInjector(AbstractErrorInjector):
     """
+    Outliers Injector generates an input percentage of outliers in defined columns of the input dataset.
+     A value of a column considered as an outlier if it is greater than n standard deviations away from the mean
+     of the column (with n = 3). For the normal distribution, the values less than 3 standard deviations away
+      from the mean account for 99.73%. In our outliers injection logic, we refer to this definition and simulate outliers
+       by moving an actual value out of the [µ − 3 · σ, µ + 3 · σ] range. To place the outliers, we randomly select rows
+        and columns based on user inputs, similarly as described for the nulls injector.
+
     Parameters
     ----------
     seed
@@ -70,7 +77,6 @@ class OutliersInjector(AbstractErrorInjector):
             if outliers_pct == 0.0:
                 continue
 
-            # TODO: is it correct?
             notna_idxs = df_copy[df_copy[col_name].notna()].index
             existing_outliers_idxs = self._detect_outliers_std(df_copy, col_name).index
             outliers_sample_idxs = [idx for idx in notna_idxs if idx not in existing_outliers_idxs]
