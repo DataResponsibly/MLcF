@@ -1,7 +1,7 @@
 import numpy as np
 from virny.datasets.data_loaders import CreditDataset
 
-from source.error_injectors.mislabels_injector import MislabelsInjector
+from mlcf.error_injectors.mislabels_injector import MislabelsInjector
 
 
 def test_mislabels_injector():

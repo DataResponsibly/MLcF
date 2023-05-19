@@ -1,6 +1,6 @@
 from virny.datasets.data_loaders import CompasDataset
 
-from source.error_injectors.proportions_sampler import ProportionsSampler
+from mlcf.error_injectors.proportions_sampler import ProportionsSampler
 
 
 def test_proportions_generator():
